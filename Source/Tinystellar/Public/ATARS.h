@@ -8,6 +8,8 @@
 
 
 class USceneComponent;
+class USpringArmComponent;
+class UCameraComponent;
 
 UCLASS()
 class TINYSTELLAR_API AATARS : public ACharacter
@@ -48,6 +50,76 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	USceneComponent* S04;
+
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* Camera;
+
+	UPROPERTY(VisibleAnywhere)
+	float SpringArmZoomIn;
+
+	UPROPERTY(VisibleAnywhere)
+	float SpringArmZoomOut;
+
+	float SpringArmCurrentLenght;
+
+	float WalkDistance;
+
+	float SprintDistance;
+
+	UPROPERTY(VisibleAnywhere)
+	float SinRotationValue;
+
+	UPROPERTY(VisibleAnywhere)
+	float CosRotationValue;
+
+	UPROPERTY(VisibleAnywhere)
+	float CenterRotationSpeed;
+
+	UPROPERTY(VisibleAnywhere)
+	float Speed;
+
+	UPROPERTY()
+	bool bIsSprinting;
+
+
+	/*** FUNCTIONS ***/
+
+	UFUNCTION()
+	void MoveForward(float Value);
+
+	UFUNCTION()
+	void MoveRight(float Value);
+
+	UFUNCTION()
+	void ZoomIn();
+
+	UFUNCTION()
+	void ZoomOut();
+
+	UFUNCTION()
+	void StartSprint();
+
+	UFUNCTION()
+	void StopSprint();
+
+	UFUNCTION()
+	void SetSpringArmLengh();
+
+	UFUNCTION()
+	void SetWalkDistance();
+
+	UFUNCTION()
+	void SetSprintDistance();
+
+	UFUNCTION()
+	void SetWalkingRotation();
+
+	UFUNCTION()
+	void SetSprintRotation();
+
 
 
 
