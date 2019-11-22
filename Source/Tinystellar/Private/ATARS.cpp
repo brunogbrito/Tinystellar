@@ -67,6 +67,7 @@ AATARS::AATARS()
 
 	Speed = 0.125f;
 	CenterRotationSpeed = 0.05f;
+	CSRotationInterpSpeed = 10.0f;
 }
 
 // Called when the game starts or when spawned
@@ -99,12 +100,12 @@ void AATARS::ZoomOut()
 
 void AATARS::StartSprint()
 {
-
+	bIsSprinting = true;
 }
 
 void AATARS::StopSprint()
 {
-
+	bIsSprinting = false;
 }
 
 // Called every frame
@@ -157,7 +158,25 @@ void AATARS::SetWalkingRotation()
 
 void AATARS::SetSprintRotation()
 {
+	if (bIsSprinting)
+	{
+		CS01RotationValue = FMath::FInterpTo(CS01RotationValue, -45.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS02RotationValue = FMath::FInterpTo(CS02RotationValue, -90.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS03RotationValue = FMath::FInterpTo(CS03RotationValue, -135.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS04RotationValue = FMath::FInterpTo(CS04RotationValue, -180.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+	}
+	else
+	{
+		CS01RotationValue = FMath::FInterpTo(CS01RotationValue, 0.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS02RotationValue = FMath::FInterpTo(CS02RotationValue, 0.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS03RotationValue = FMath::FInterpTo(CS03RotationValue, 0.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+		CS04RotationValue = FMath::FInterpTo(CS04RotationValue, 0.0f, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
+	}
 
+	CS01->SetRelativeRotation(FRotator(CS01RotationValue, 0.0f, 0.0f));
+	CS02->SetRelativeRotation(FRotator(CS02RotationValue, 0.0f, 0.0f));
+	CS03->SetRelativeRotation(FRotator(CS03RotationValue, 0.0f, 0.0f));
+	CS04->SetRelativeRotation(FRotator(CS04RotationValue, 0.0f, 0.0f));
 }
 
 // Called to bind functionality to input

@@ -69,6 +69,14 @@ protected:
 
 	float SprintDistance;
 
+	float CS01RotationValue;
+	float CS02RotationValue;
+	float CS03RotationValue;
+	float CS04RotationValue;
+
+	UPROPERTY()
+	float CSRotationInterpSpeed;
+
 	UPROPERTY(VisibleAnywhere)
 	float SinRotationValue;
 
