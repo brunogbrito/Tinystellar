@@ -77,9 +77,6 @@ protected:
 	float CS04RotationValue;
 	float CSRotationValue;
 
-	UPROPERTY(EditDefaultsOnly, Category = "TarsRotation")
-	float CSRotationInterpSpeed;
-
 	UPROPERTY(VisibleAnywhere)
 	float SinRotationValue;
 

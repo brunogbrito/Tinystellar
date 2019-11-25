@@ -67,14 +67,12 @@ AATARS::AATARS()
 
 	Speed = 0.125f;
 	CenterRotationSpeed = 0.05f;
-	CSRotationInterpSpeed = 10.0f;
 }
 
 // Called when the game starts or when spawned
 void AATARS::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AATARS::MoveForward(float Value)
@@ -140,7 +138,6 @@ void AATARS::SetWalkDistance()
 void AATARS::SetSprintDistance()
 {
 	SprintDistance = SprintDistance + (UKismetMathLibrary::NormalizeToRange(GetVelocity().Size(), 0.0f, 300.0f));
-	UE_LOG(LogTemp, Warning, TEXT("SprintDistance is %f"), SprintDistance);
 }
 
 void AATARS::SetWalkingRotation()
