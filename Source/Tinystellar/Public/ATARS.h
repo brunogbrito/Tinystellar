@@ -69,12 +69,15 @@ protected:
 
 	float SprintDistance;
 
+	float CSInterpRotationValue;
+
 	float CS01RotationValue;
 	float CS02RotationValue;
 	float CS03RotationValue;
 	float CS04RotationValue;
+	float CSRotationValue;
 
-	UPROPERTY()
+	UPROPERTY(EditDefaultsOnly, Category = "TarsRotation")
 	float CSRotationInterpSpeed;
 
 	UPROPERTY(VisibleAnywhere)

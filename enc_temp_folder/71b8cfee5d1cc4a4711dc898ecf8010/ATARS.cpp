@@ -110,7 +110,7 @@ void AATARS::StopSprint()
 {
 	GetCharacterMovement()->MaxWalkSpeed = 200.0f;
 	bIsSprinting = false;
-	CSInterpRotationValue = 0.00001f;
+	CSInterpRotationValue = 0.0000001f;
 	SprintDistance = 0.0f;
 }
 
@@ -121,7 +121,6 @@ void AATARS::Tick(float DeltaTime)
 
 	SetSpringArmLengh();
 	SetWalkDistance();
-	SetSprintDistance();
 	SetWalkingRotation();
 	SetSprintRotation();
 }
@@ -139,8 +138,7 @@ void AATARS::SetWalkDistance()
 
 void AATARS::SetSprintDistance()
 {
-	SprintDistance = SprintDistance + (UKismetMathLibrary::NormalizeToRange(GetVelocity().Size(), 0.0f, 300.0f));
-	UE_LOG(LogTemp, Warning, TEXT("SprintDistance is %f"), SprintDistance);
+	SprintDistance = SprintDistance + (UKismetMathLibrary::NormalizeToRange(GetVelocity().Size(), 0.0f, 300.0f) * CenterRotationSpeed);
 }
 
 void AATARS::SetWalkingRotation()
@@ -165,14 +163,14 @@ void AATARS::SetWalkingRotation()
 
 void AATARS::SetSprintRotation()
 {
-	CSRotationValue = FMath::FInterpTo(CSRotationValue, CSInterpRotationValue, UGameplayStatics::GetWorldDeltaSeconds(this), 10.0f);
+	CSRotationValue = FMath::FInterpTo(CSRotationValue, CSInterpRotationValue, UGameplayStatics::GetWorldDeltaSeconds(this), CSRotationInterpSpeed);
 
 	CS01->SetRelativeRotation(FRotator(CSRotationValue * -45.0f, 0.0f, 0.0f));
 	CS02->SetRelativeRotation(FRotator(CSRotationValue * -90.0f, 0.0f, 0.0f));
 	CS03->SetRelativeRotation(FRotator(CSRotationValue * -135.0f, 0.0f, 0.0f));
 	CS04->SetRelativeRotation(FRotator(CSRotationValue * -180.0f, 0.0f, 0.0f));
 
-	Center->SetRelativeRotation(FQuat(FVector(0.0f, 1.0f, 0.0f), CSRotationValue * UKismetMathLibrary::DegreesToRadians(SprintDistance)));
+	Center->SetRelativeRotation(FQuat(FVector(1.0f, 0.0f, 0.0f), CSRotationValue * UKismetMathLibrary::DegreesToRadians(SprintDistance)));
 }
 
 // Called to bind functionality to input
